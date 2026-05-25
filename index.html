@@ -12,119 +12,26 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html, body { height: 100%; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4fe; }
-
   :root {
-    --accent: #7F77DD;
-    --accent-light: #EEEDFE;
-    --accent-dark: #3C3489;
-    --teal: #1D9E75;
-    --teal-light: #E1F5EE;
-    --coral: #D85A30;
-    --coral-light: #FAECE7;
-    --amber: #BA7517;
-    --amber-light: #FAEEDA;
-    --bg: #ffffff;
-    --bg2: #f7f6ff;
-    --border: rgba(0,0,0,0.08);
-    --text: #1a1a2e;
-    --text2: #6b6b8a;
-    --nav-h: 64px;
-    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --accent: #7F77DD; --accent-light: #EEEDFE; --accent-dark: #3C3489;
+    --teal: #1D9E75; --teal-light: #E1F5EE; --coral: #D85A30; --coral-light: #FAECE7;
+    --amber: #BA7517; --amber-light: #FAEEDA; --bg: #ffffff; --bg2: #f7f6ff;
+    --border: rgba(0,0,0,0.08); --text: #1a1a2e; --text2: #6b6b8a;
+    --nav-h: 64px; --safe-bottom: env(safe-area-inset-bottom, 0px);
   }
-
-  .app {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    max-width: 430px;
-    margin: 0 auto;
-    background: var(--bg);
-    position: relative;
-    box-shadow: 0 0 40px rgba(127,119,221,0.15);
-  }
-
-  /* ── HEADER ── */
-  .app-header {
-    padding: 52px 20px 16px;
-    background: var(--accent);
-    color: white;
-    flex-shrink: 0;
-  }
+  .app { display: flex; flex-direction: column; height: 100%; max-width: 430px; margin: 0 auto; background: var(--bg); position: relative; box-shadow: 0 0 40px rgba(127,119,221,0.15); }
+  .app-header { padding: 52px 20px 16px; background: var(--accent); color: white; flex-shrink: 0; }
   .app-header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
   .app-header p { font-size: 13px; opacity: 0.8; margin-top: 2px; }
-
-  /* ── SCREENS ── */
-  .screens {
-    flex: 1;
-    overflow: hidden;
-    position: relative;
-  }
-  .screen {
-    position: absolute;
-    inset: 0;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 16px 16px calc(var(--nav-h) + var(--safe-bottom) + 16px);
-    display: none;
-    background: var(--bg2);
-  }
+  .screens { flex: 1; overflow: hidden; position: relative; }
+  .screen { position: absolute; inset: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 16px 16px calc(var(--nav-h) + var(--safe-bottom) + 16px); display: none; background: var(--bg2); }
   .screen.active { display: block; }
-
-  /* ── NAV ── */
-  .nav {
-    position: absolute;
-    bottom: 0;
-    left: 0; right: 0;
-    height: calc(var(--nav-h) + var(--safe-bottom));
-    padding-bottom: var(--safe-bottom);
-    background: var(--bg);
-    border-top: 0.5px solid var(--border);
-    display: flex;
-    z-index: 100;
-  }
-  .nav-btn {
-    flex: 1;
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    font-size: 10px;
-    color: var(--text2);
-    transition: color 0.2s;
-    padding-top: 8px;
-  }
+  .nav { position: absolute; bottom: 0; left: 0; right: 0; height: calc(var(--nav-h) + var(--safe-bottom)); padding-bottom: var(--safe-bottom); background: var(--bg); border-top: 0.5px solid var(--border); display: flex; z-index: 100; }
+  .nav-btn { flex: 1; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 10px; color: var(--text2); transition: color 0.2s; padding-top: 8px; }
   .nav-btn i { font-size: 22px; }
   .nav-btn.active { color: var(--accent); }
-  .nav-btn.active i { font-weight: 600; }
-
-  /* ── CARDS ── */
-  .card {
-    background: var(--bg);
-    border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 12px;
-    border: 0.5px solid var(--border);
-  }
-  .card-sm {
-    background: var(--bg);
-    border-radius: 12px;
-    padding: 12px 14px;
-    margin-bottom: 8px;
-    border: 0.5px solid var(--border);
-  }
-
-  /* ── HERO ── */
-  .hero {
-    background: linear-gradient(135deg, #7F77DD 0%, #534AB7 100%);
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 16px;
-    color: white;
-  }
+  .card { background: var(--bg); border-radius: 16px; padding: 16px; margin-bottom: 12px; border: 0.5px solid var(--border); }
+  .hero { background: linear-gradient(135deg, #7F77DD 0%, #534AB7 100%); border-radius: 20px; padding: 20px; margin-bottom: 16px; color: white; }
   .hero-label { font-size: 12px; opacity: 0.75; margin-bottom: 4px; }
   .hero-title { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
   .hero-sub { font-size: 13px; opacity: 0.85; line-height: 1.5; }
@@ -132,17 +39,11 @@
   .xp-labels { display: flex; justify-content: space-between; font-size: 11px; opacity: 0.8; margin-bottom: 5px; }
   .xp-bar { height: 6px; background: rgba(255,255,255,0.25); border-radius: 99px; overflow: hidden; }
   .xp-fill { height: 100%; background: white; border-radius: 99px; transition: width 0.5s ease; }
-
-  /* ── STATS ── */
   .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
   .stat-card { background: var(--bg); border-radius: 14px; padding: 14px; text-align: center; border: 0.5px solid var(--border); }
   .stat-val { font-size: 28px; font-weight: 700; color: var(--accent); }
   .stat-lbl { font-size: 11px; color: var(--text2); margin-top: 2px; }
-
-  /* ── SECTION TITLE ── */
   .sec-title { font-size: 12px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.06em; margin: 4px 0 10px; }
-
-  /* ── DAILY CARDS ── */
   .daily-card { background: var(--bg); border-radius: 16px; padding: 14px; margin-bottom: 10px; border: 0.5px solid var(--border); }
   .tag { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 99px; display: inline-block; margin-bottom: 7px; }
   .tag.vocab { background: var(--teal-light); color: var(--teal); }
@@ -152,21 +53,8 @@
   .daily-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
   .daily-desc { font-size: 13px; color: var(--text2); line-height: 1.5; }
   .check-row { display: flex; justify-content: flex-end; margin-top: 12px; }
-  .check-btn {
-    background: none;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    padding: 6px 16px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    color: var(--text2);
-    display: flex; align-items: center; gap: 6px;
-    transition: all 0.2s;
-  }
+  .check-btn { background: none; border: 1.5px solid var(--border); border-radius: 10px; padding: 6px 16px; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text2); display: flex; align-items: center; gap: 6px; transition: all 0.2s; }
   .check-btn.done { background: var(--teal-light); color: var(--teal); border-color: var(--teal); }
-
-  /* ── PHASE CARDS ── */
   .phase-card { background: var(--bg); border-radius: 16px; padding: 16px; margin-bottom: 10px; border: 0.5px solid var(--border); cursor: pointer; }
   .phase-header { display: flex; align-items: center; gap: 12px; }
   .phase-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
@@ -184,146 +72,52 @@
   .pill.purple { background: var(--accent-light); color: var(--accent-dark); }
   .pill.amber { background: var(--amber-light); color: var(--amber); }
   .pill.coral { background: var(--coral-light); color: var(--coral); }
-
-  /* ── CHAT ── */
   .chat-controls { margin-bottom: 10px; }
   .lang-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
   .lang-row label { font-size: 13px; color: var(--text2); white-space: nowrap; font-weight: 500; }
-  .lang-row select {
-    flex: 1;
-    font-size: 14px;
-    padding: 8px 12px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: var(--bg);
-    color: var(--text);
-    -webkit-appearance: none;
-  }
+  .lang-row select { flex: 1; font-size: 14px; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text); -webkit-appearance: none; }
   .mode-row { display: flex; gap: 6px; }
-  .mode-btn {
-    flex: 1;
-    padding: 8px 4px;
-    font-size: 12px;
-    font-weight: 500;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: var(--bg);
-    color: var(--text2);
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex; align-items: center; justify-content: center; gap: 4px;
-  }
+  .mode-btn { flex: 1; padding: 8px 4px; font-size: 12px; font-weight: 500; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text2); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 4px; }
   .mode-btn.active { background: var(--accent-light); color: var(--accent-dark); border-color: var(--accent); }
-  .messages {
-    background: var(--bg);
-    border-radius: 16px;
-    border: 0.5px solid var(--border);
-    padding: 14px;
-    min-height: 280px;
-    max-height: 340px;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
+  .messages { background: var(--bg); border-radius: 16px; border: 0.5px solid var(--border); padding: 14px; min-height: 280px; max-height: 340px; overflow-y: auto; -webkit-overflow-scrolling: touch; display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
   .msg { max-width: 82%; padding: 10px 14px; border-radius: 18px; font-size: 14px; line-height: 1.5; }
   .msg.ai { align-self: flex-start; background: var(--bg2); color: var(--text); border-bottom-left-radius: 4px; }
   .msg.user { align-self: flex-end; background: var(--accent); color: white; border-bottom-right-radius: 4px; }
   .msg.loading { opacity: 0.5; font-style: italic; }
   .input-row { display: flex; gap: 8px; }
-  .input-row input {
-    flex: 1;
-    font-size: 14px;
-    padding: 10px 16px;
-    border-radius: 22px;
-    border: 1px solid var(--border);
-    background: var(--bg);
-    color: var(--text);
-    outline: none;
-  }
+  .input-row input { flex: 1; font-size: 14px; padding: 10px 16px; border-radius: 22px; border: 1px solid var(--border); background: var(--bg); color: var(--text); outline: none; }
   .input-row input:focus { border-color: var(--accent); }
-  .send-btn {
-    width: 42px; height: 42px;
-    border-radius: 50%;
-    background: var(--accent);
-    border: none;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    color: white;
-    flex-shrink: 0;
-    font-size: 18px;
-    transition: transform 0.15s;
-  }
+  .send-btn { width: 42px; height: 42px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0; font-size: 18px; transition: transform 0.15s; }
   .send-btn:active { transform: scale(0.92); }
-
-  /* ── VOCAB ── */
   .vocab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-  .vocab-card {
-    background: var(--bg);
-    border-radius: 14px;
-    padding: 14px 12px;
-    cursor: pointer;
-    border: 1px solid var(--border);
-    transition: all 0.2s;
-    min-height: 80px;
-    display: flex; flex-direction: column; justify-content: center;
-  }
+  .vocab-card { background: var(--bg); border-radius: 14px; padding: 14px 12px; cursor: pointer; border: 1px solid var(--border); transition: all 0.2s; min-height: 80px; display: flex; flex-direction: column; justify-content: center; }
   .vocab-card.flipped { background: var(--accent-light); border-color: var(--accent); }
   .vocab-front { font-size: 16px; font-weight: 600; color: var(--text); }
   .vocab-card.flipped .vocab-front { font-size: 13px; font-weight: 600; color: var(--accent-dark); }
   .vocab-back { font-size: 12px; color: var(--text2); margin-top: 4px; line-height: 1.4; display: none; }
   .vocab-card.flipped .vocab-back { display: block; color: var(--accent-dark); }
   .vocab-add-row { display: flex; gap: 8px; margin-bottom: 8px; }
-  .vocab-add-row input {
-    flex: 1; font-size: 14px; padding: 10px 14px;
-    border-radius: 12px; border: 1px solid var(--border);
-    background: var(--bg); color: var(--text); outline: none;
-  }
+  .vocab-add-row input { flex: 1; font-size: 14px; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); outline: none; }
   .vocab-add-row input:focus { border-color: var(--accent); }
-  .add-btn {
-    padding: 0 18px;
-    border-radius: 12px;
-    background: var(--accent);
-    color: white;
-    border: none;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-
-  /* ── API KEY ── */
+  .add-btn { padding: 0 18px; border-radius: 12px; background: var(--accent); color: white; border: none; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; }
   .api-section { background: var(--bg); border-radius: 16px; padding: 16px; border: 0.5px solid var(--border); margin-bottom: 12px; }
   .api-section label { font-size: 13px; font-weight: 600; color: var(--text); display: block; margin-bottom: 6px; }
-  .api-section input {
-    width: 100%; font-size: 13px; padding: 10px 12px;
-    border-radius: 10px; border: 1px solid var(--border);
-    background: var(--bg2); color: var(--text); outline: none;
-    font-family: monospace;
-  }
+  .api-section input { width: 100%; font-size: 13px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg2); color: var(--text); outline: none; font-family: monospace; }
   .api-section input:focus { border-color: var(--accent); }
-  .save-btn {
-    width: 100%; margin-top: 10px; padding: 12px;
-    background: var(--accent); color: white;
-    border: none; border-radius: 12px;
-    font-size: 15px; font-weight: 600; cursor: pointer;
-  }
+  .save-btn { width: 100%; margin-top: 10px; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; }
   .api-hint { font-size: 12px; color: var(--text2); margin-top: 8px; line-height: 1.5; }
   .api-status { font-size: 13px; font-weight: 600; padding: 8px 12px; border-radius: 10px; margin-bottom: 10px; text-align: center; }
   .api-status.ok { background: var(--teal-light); color: var(--teal); }
   .api-status.missing { background: var(--coral-light); color: var(--coral); }
+  .error-box { background: var(--coral-light); color: var(--coral); border-radius: 10px; padding: 10px 14px; font-size: 13px; margin-bottom: 10px; display: none; }
 </style>
 </head>
 <body>
 <div class="app">
-
   <div class="app-header">
     <h1>MyFluent Flow</h1>
     <p>Sua trilha de 180 dias para fluência real</p>
   </div>
-
   <div class="screens">
 
     <!-- HOME -->
@@ -337,35 +131,29 @@
           <div class="xp-bar"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
         </div>
       </div>
-
       <div class="stats-row">
         <div class="stat-card"><div class="stat-val" id="streak-val">0</div><div class="stat-lbl">dias seguidos 🔥</div></div>
         <div class="stat-card"><div class="stat-val" id="words-val">0</div><div class="stat-lbl">palavras aprendidas</div></div>
       </div>
-
       <div class="sec-title">Tarefas de hoje</div>
-
       <div class="daily-card">
         <span class="tag vocab">Vocabulário</span>
         <div class="daily-title">10 palavras de alta frequência</div>
         <div class="daily-desc">As 1000 palavras mais usadas cobrem 85% das conversas. Vai na aba Vocab e adicione 10 palavras novas.</div>
         <div class="check-row"><button class="check-btn" id="t1" onclick="markDone('t1',20)"><i class="ti ti-check"></i> Marcar feito</button></div>
       </div>
-
       <div class="daily-card">
         <span class="tag speaking">Speaking</span>
         <div class="daily-title">Conversação com IA — 5 min</div>
         <div class="daily-desc">Aba Conversar → troca pelo menos 8 mensagens no idioma alvo. Erre. É parte do processo.</div>
         <div class="check-row"><button class="check-btn" id="t2" onclick="markDone('t2',20)"><i class="ti ti-check"></i> Marcar feito</button></div>
       </div>
-
       <div class="daily-card">
         <span class="tag listening">Listening</span>
         <div class="daily-title">Input compreensível — 15 min</div>
         <div class="daily-desc">Série, podcast ou YouTube em 70% de compreensão. Pausa, repete, anota 3 palavras novas no Vocab.</div>
         <div class="check-row"><button class="check-btn" id="t3" onclick="markDone('t3',15)"><i class="ti ti-check"></i> Marcar feito</button></div>
       </div>
-
       <div class="daily-card">
         <span class="tag review">Revisão</span>
         <div class="daily-title">Spaced repetition — flashcards</div>
@@ -377,87 +165,51 @@
     <!-- TRILHA -->
     <div id="screen-trilha" class="screen">
       <div class="sec-title">Trilha completa — 180 dias</div>
-
       <div class="phase-card" onclick="togglePhase(this)">
         <div class="phase-header">
           <div class="phase-icon p1"><i class="ti ti-seedling"></i></div>
-          <div style="flex:1">
-            <div class="phase-name">Fase 1 — Fundação</div>
-            <div class="phase-days">Dias 1–30 · Iniciante</div>
-          </div>
+          <div style="flex:1"><div class="phase-name">Fase 1 — Fundação</div><div class="phase-days">Dias 1–30 · Iniciante</div></div>
           <i class="ti ti-chevron-down" style="color:var(--text2);font-size:18px;"></i>
         </div>
         <div class="phase-detail">
           <strong>Objetivo:</strong> sobreviver numa conversa simples do dia a dia.
-          <div class="pills">
-            <span class="pill teal">Top 300 palavras</span>
-            <span class="pill teal">Fonética básica</span>
-            <span class="pill teal">Saudações e rotina</span>
-            <span class="pill teal">Presente simples</span>
-          </div>
+          <div class="pills"><span class="pill teal">Top 300 palavras</span><span class="pill teal">Fonética básica</span><span class="pill teal">Saudações e rotina</span><span class="pill teal">Presente simples</span></div>
           <p>Rotina: 10 palavras + 5 min conversação + 15 min input. Meta: 300 palavras ativas, conseguir se apresentar e falar sobre o dia.</p>
         </div>
       </div>
-
       <div class="phase-card" onclick="togglePhase(this)">
         <div class="phase-header">
           <div class="phase-icon p2"><i class="ti ti-flame"></i></div>
-          <div style="flex:1">
-            <div class="phase-name">Fase 2 — Aceleração</div>
-            <div class="phase-days">Dias 31–60 · Básico-Intermediário</div>
-          </div>
+          <div style="flex:1"><div class="phase-name">Fase 2 — Aceleração</div><div class="phase-days">Dias 31–60 · Básico-Intermediário</div></div>
           <i class="ti ti-chevron-down" style="color:var(--text2);font-size:18px;"></i>
         </div>
         <div class="phase-detail">
           <strong>Objetivo:</strong> conversação funcional sem travar.
-          <div class="pills">
-            <span class="pill purple">Top 1000 palavras</span>
-            <span class="pill purple">Verbos no passado</span>
-            <span class="pill purple">Storytelling simples</span>
-            <span class="pill purple">Shadowing</span>
-          </div>
+          <div class="pills"><span class="pill purple">Top 1000 palavras</span><span class="pill purple">Verbos no passado</span><span class="pill purple">Storytelling simples</span><span class="pill purple">Shadowing</span></div>
           <p>Shadowing: imitar nativos em áudio para treinar ritmo e pronúncia. 15 min/dia de conversação. Debates simples com IA.</p>
         </div>
       </div>
-
       <div class="phase-card" onclick="togglePhase(this)">
         <div class="phase-header">
           <div class="phase-icon p3"><i class="ti ti-bolt"></i></div>
-          <div style="flex:1">
-            <div class="phase-name">Fase 3 — Fluência Operacional</div>
-            <div class="phase-days">Dias 61–120 · Intermediário</div>
-          </div>
+          <div style="flex:1"><div class="phase-name">Fase 3 — Fluência Operacional</div><div class="phase-days">Dias 61–120 · Intermediário</div></div>
           <i class="ti ti-chevron-down" style="color:var(--text2);font-size:18px;"></i>
         </div>
         <div class="phase-detail">
           <strong>Objetivo:</strong> pensar no idioma, não traduzir.
-          <div class="pills">
-            <span class="pill amber">2000 palavras ativas</span>
-            <span class="pill amber">Gírias e expressões</span>
-            <span class="pill amber">Debates com IA</span>
-            <span class="pill amber">Diário no idioma</span>
-          </div>
+          <div class="pills"><span class="pill amber">2000 palavras ativas</span><span class="pill amber">Gírias e expressões</span><span class="pill amber">Debates com IA</span><span class="pill amber">Diário no idioma</span></div>
           <p>Escrever 5 linhas/dia no idioma. Conteúdo sem legenda 50% do tempo. Debates sobre TI e liderança em contexto profissional.</p>
         </div>
       </div>
-
       <div class="phase-card" onclick="togglePhase(this)">
         <div class="phase-header">
           <div class="phase-icon p4"><i class="ti ti-trophy"></i></div>
-          <div style="flex:1">
-            <div class="phase-name">Fase 4 — Domínio</div>
-            <div class="phase-days">Dias 121–180 · Avançado</div>
-          </div>
+          <div style="flex:1"><div class="phase-name">Fase 4 — Domínio</div><div class="phase-days">Dias 121–180 · Avançado</div></div>
           <i class="ti ti-chevron-down" style="color:var(--text2);font-size:18px;"></i>
         </div>
         <div class="phase-detail">
           <strong>Objetivo:</strong> conforto real, fluência de elite.
-          <div class="pills">
-            <span class="pill coral">3000+ palavras</span>
-            <span class="pill coral">Nuance e humor</span>
-            <span class="pill coral">Apresentações</span>
-            <span class="pill coral">Contexto profissional</span>
-          </div>
+          <div class="pills"><span class="pill coral">3000+ palavras</span><span class="pill coral">Nuance e humor</span><span class="pill coral">Apresentações</span><span class="pill coral">Contexto profissional</span></div>
           <p>Reuniões simuladas, apresentações técnicas de TI/DEX. Leitura sem dicionário. Você está no top 1% dos aprendizes.</p>
         </div>
       </div>
@@ -484,6 +236,7 @@
           <button class="mode-btn" id="mode-correct" onclick="setMode('correct')"><i class="ti ti-pencil"></i> Correção</button>
         </div>
       </div>
+      <div id="chat-error" class="error-box"></div>
       <div class="messages" id="messages">
         <div class="msg ai">Olá! Escolha o idioma e o modo acima, depois escreva qualquer coisa para começar. Vou responder no idioma alvo com tradução e corrigir seus erros. 💬</div>
       </div>
@@ -507,20 +260,13 @@
     <!-- CONFIG -->
     <div id="screen-config" class="screen">
       <div class="sec-title">Configuração</div>
-
       <div id="api-status-bar"></div>
-
       <div class="api-section">
         <label><i class="ti ti-key"></i> Chave API Anthropic</label>
-        <input type="password" id="api-key-input" placeholder="sk-ant-api03-..." />
+        <input type="password" id="api-key-input" placeholder="sk-ant-api03-..."/>
         <button class="save-btn" onclick="saveApiKey()">Salvar chave</button>
-        <p class="api-hint">
-          Necessária para a conversação e tradução com IA.<br>
-          Obtenha gratuitamente em <strong>console.anthropic.com</strong> → API Keys.<br>
-          A chave fica salva apenas no seu dispositivo.
-        </p>
+        <p class="api-hint">Necessária para conversação e tradução com IA.<br>Obtenha em <strong>console.anthropic.com</strong> → API Keys.<br>Salva apenas no seu dispositivo.</p>
       </div>
-
       <div class="api-section">
         <label><i class="ti ti-language"></i> Idioma padrão</label>
         <select id="default-lang" style="width:100%;font-size:14px;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--text);">
@@ -532,38 +278,25 @@
         </select>
         <button class="save-btn" style="margin-top:10px;" onclick="saveLang()">Salvar idioma</button>
       </div>
-
       <div class="api-section">
         <label><i class="ti ti-refresh"></i> Reiniciar progresso</label>
         <button class="save-btn" style="background:#D85A30;" onclick="resetProgress()">Reiniciar tudo</button>
-        <p class="api-hint">Zera streak, XP e palavras aprendidas. Vocab e chave API são mantidos.</p>
+        <p class="api-hint">Zera streak, XP e palavras. Vocab e chave API são mantidos.</p>
       </div>
     </div>
 
   </div>
 
   <nav class="nav">
-    <button class="nav-btn active" onclick="showScreen('home',this)">
-      <i class="ti ti-home"></i><span>Início</span>
-    </button>
-    <button class="nav-btn" onclick="showScreen('trilha',this)">
-      <i class="ti ti-map"></i><span>Trilha</span>
-    </button>
-    <button class="nav-btn" onclick="showScreen('chat',this)">
-      <i class="ti ti-message-circle"></i><span>Conversar</span>
-    </button>
-    <button class="nav-btn" onclick="showScreen('vocab',this)">
-      <i class="ti ti-cards"></i><span>Vocab</span>
-    </button>
-    <button class="nav-btn" onclick="showScreen('config',this)">
-      <i class="ti ti-settings"></i><span>Config</span>
-    </button>
+    <button class="nav-btn active" onclick="showScreen('home',this)"><i class="ti ti-home"></i><span>Início</span></button>
+    <button class="nav-btn" onclick="showScreen('trilha',this)"><i class="ti ti-map"></i><span>Trilha</span></button>
+    <button class="nav-btn" onclick="showScreen('chat',this)"><i class="ti ti-message-circle"></i><span>Conversar</span></button>
+    <button class="nav-btn" onclick="showScreen('vocab',this)"><i class="ti ti-cards"></i><span>Vocab</span></button>
+    <button class="nav-btn" onclick="showScreen('config',this)"><i class="ti ti-settings"></i><span>Config</span></button>
   </nav>
-
 </div>
 
 <script>
-// ── STATE ──
 let xp = parseInt(localStorage.getItem('mf_xp') || '0');
 let streak = parseInt(localStorage.getItem('mf_streak') || '0');
 let words = parseInt(localStorage.getItem('mf_words') || '0');
@@ -571,35 +304,26 @@ let startDate = localStorage.getItem('mf_start') || new Date().toISOString().spl
 let chatMode = 'casual';
 let vocabList = JSON.parse(localStorage.getItem('mf_vocab') || '["Hello","Thank you","Meeting","Deadline","Performance","Dashboard","I need help","Good morning","See you later","Well done"]');
 let doneTasks = JSON.parse(localStorage.getItem('mf_done_' + today()) || '[]');
-
 if (!localStorage.getItem('mf_start')) localStorage.setItem('mf_start', startDate);
 
 function today() { return new Date().toISOString().split('T')[0]; }
-
 function dayNumber() {
-  const d1 = new Date(startDate);
-  const d2 = new Date();
+  const d1 = new Date(startDate), d2 = new Date();
   return Math.max(1, Math.min(180, Math.round((d2 - d1) / 86400000) + 1));
 }
-
 function getApiKey() { return localStorage.getItem('mf_apikey') || ''; }
+function langLabel(v) {
+  const m = {English:'Inglês',Spanish:'Espanhol',French:'Francês',Italian:'Italiano',German:'Alemão','Mandarin Chinese':'Mandarim',Japanese:'Japonês'};
+  return m[v] || v;
+}
 
-// ── INIT ──
 function init() {
   document.getElementById('streak-val').textContent = streak;
   document.getElementById('words-val').textContent = words;
   document.getElementById('hero-day').textContent = 'Dia ' + dayNumber() + ' de 180';
   const lang = localStorage.getItem('mf_deflang') || 'English';
   document.getElementById('hero-lang').textContent = 'Idioma ativo: ' + langLabel(lang);
-  updateXP();
-  restoreDoneTasks();
-  renderVocab();
-  updateApiStatus();
-}
-
-function langLabel(v) {
-  const m = {English:'Inglês',Spanish:'Espanhol',French:'Francês',Italian:'Italiano',German:'Alemão','Mandarin Chinese':'Mandarim',Japanese:'Japonês'};
-  return m[v] || v;
+  updateXP(); restoreDoneTasks(); renderVocab(); updateApiStatus();
 }
 
 function updateXP() {
@@ -617,14 +341,11 @@ function restoreDoneTasks() {
 
 function updateApiStatus() {
   const bar = document.getElementById('api-status-bar');
-  if (getApiKey()) {
-    bar.innerHTML = '<div class="api-status ok"><i class="ti ti-check"></i> Chave API configurada</div>';
-  } else {
-    bar.innerHTML = '<div class="api-status missing"><i class="ti ti-alert-triangle"></i> Chave API não configurada — conversação indisponível</div>';
-  }
+  if (bar) bar.innerHTML = getApiKey()
+    ? '<div class="api-status ok"><i class="ti ti-check"></i> Chave API configurada</div>'
+    : '<div class="api-status missing"><i class="ti ti-alert-triangle"></i> Chave API não configurada</div>';
 }
 
-// ── NAV ──
 function showScreen(id, btn) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -640,7 +361,6 @@ function showScreen(id, btn) {
   }
 }
 
-// ── TASKS ──
 function markDone(id, pts) {
   if (doneTasks.includes(id)) return;
   doneTasks.push(id);
@@ -659,18 +379,12 @@ function markDone(id, pts) {
   }
 }
 
-// ── PHASE ──
-function togglePhase(card) {
-  card.querySelector('.phase-detail').classList.toggle('open');
-}
-
-// ── CHAT ──
+function togglePhase(card) { card.querySelector('.phase-detail').classList.toggle('open'); }
 function setMode(mode) {
   chatMode = mode;
   document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('mode-' + mode).classList.add('active');
 }
-
 function updateLangLabel() {
   const v = document.getElementById('lang-select').value;
   document.getElementById('hero-lang').textContent = 'Idioma ativo: ' + langLabel(v);
@@ -686,12 +400,46 @@ function addMsg(text, role) {
   return div;
 }
 
+function showChatError(msg) {
+  const box = document.getElementById('chat-error');
+  box.textContent = msg;
+  box.style.display = 'block';
+  setTimeout(() => box.style.display = 'none', 5000);
+}
+
+async function callClaude(systemPrompt, messages) {
+  const apiKey = getApiKey();
+  if (!apiKey) throw new Error('NO_KEY');
+
+  // Try direct first, fallback to proxy
+  const endpoints = [
+    { url: 'https://api.anthropic.com/v1/messages', headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' } },
+    { url: 'https://corsproxy.io/?https://api.anthropic.com/v1/messages', headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' } }
+  ];
+
+  const body = JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: systemPrompt, messages });
+
+  for (const ep of endpoints) {
+    try {
+      const res = await fetch(ep.url, { method: 'POST', headers: ep.headers, body });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        if (res.status === 401) throw new Error('INVALID_KEY');
+        throw new Error(err?.error?.message || 'API_ERROR');
+      }
+      const data = await res.json();
+      return data.content?.find(b => b.type === 'text')?.text || '';
+    } catch(e) {
+      if (e.message === 'INVALID_KEY' || e.message === 'NO_KEY') throw e;
+      // try next endpoint
+    }
+  }
+  throw new Error('NETWORK_ERROR');
+}
+
 async function sendMsg() {
   const apiKey = getApiKey();
-  if (!apiKey) {
-    addMsg('Configure sua chave API na aba Config primeiro.', 'ai');
-    return;
-  }
+  if (!apiKey) { showChatError('Configure sua chave API na aba Config primeiro.'); return; }
   const input = document.getElementById('chat-input');
   const text = input.value.trim();
   if (!text) return;
@@ -700,40 +448,32 @@ async function sendMsg() {
 
   const lang = document.getElementById('lang-select').value;
   const modes = {
-    casual: `Converse de forma casual. Responda SEMPRE em ${lang} (com tradução PT-BR ao final entre parênteses). Corrija erros integrando a forma correta na conversa naturalmente.`,
+    casual: `Converse de forma casual. Responda SEMPRE em ${lang} (com tradução PT-BR ao final entre parênteses). Corrija erros integrando a forma correta naturalmente.`,
     business: `Simule reunião corporativa de TI. Responda em ${lang} (com tradução PT-BR). Use vocabulário executivo profissional.`,
-    correct: `Antes da resposta, identifique erros gramaticais do usuário e mostre a correção. Depois responda em ${lang} naturalmente.`
+    correct: `Identifique erros gramaticais do usuário e mostre a correção. Depois responda em ${lang} naturalmente.`
   };
 
   const loading = addMsg('digitando...', 'ai loading');
-
   const history = [];
   document.querySelectorAll('#messages .msg:not(.loading)').forEach(m => {
     history.push({ role: m.classList.contains('user') ? 'user' : 'assistant', content: m.textContent });
   });
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: `Você é um tutor de idiomas especialista nativo em ${lang}. ${modes[chatMode]} Seja conciso (máx 3 frases). Nunca quebre o fluxo com explicações longas.`,
-        messages: history
-      })
-    });
-    const data = await res.json();
-    const reply = data.content?.find(b => b.type === 'text')?.text || 'Tente novamente.';
+    const reply = await callClaude(
+      `Você é um tutor de idiomas especialista nativo em ${lang}. ${modes[chatMode]} Seja conciso (máx 3 frases).`,
+      history
+    );
     loading.textContent = reply;
     loading.classList.remove('loading');
   } catch(e) {
-    loading.textContent = 'Erro de conexão. Verifique sua chave API.';
-    loading.classList.remove('loading');
+    loading.remove();
+    if (e.message === 'NO_KEY') showChatError('Configure sua chave API na aba Config.');
+    else if (e.message === 'INVALID_KEY') showChatError('Chave API inválida. Verifique na aba Config.');
+    else showChatError('Erro de conexão. Verifique sua internet e tente novamente.');
   }
 }
 
-// ── VOCAB ──
 function renderVocab() {
   const grid = document.getElementById('vocab-grid');
   grid.innerHTML = '';
@@ -752,25 +492,16 @@ async function flipCard(card, word, i) {
   const back = document.getElementById('vb-' + i);
   if (back.dataset.loaded) return;
   back.textContent = '...';
-  const apiKey = getApiKey();
-  if (!apiKey) { back.textContent = 'Configure a chave API na aba Config.'; return; }
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: `Traduza para PT-BR e dê exemplo curto de uso: "${word}". Formato: Tradução: X | Ex: Y` }]
-      })
-    });
-    const data = await res.json();
-    back.textContent = data.content?.[0]?.text || 'Erro';
+    const reply = await callClaude('Você é um tradutor conciso.', [{ role: 'user', content: `Traduza para PT-BR e dê exemplo curto de uso: "${word}". Formato: Tradução: X | Ex: Y` }]);
+    back.textContent = reply;
     back.dataset.loaded = '1';
     words++;
     localStorage.setItem('mf_words', words);
     document.getElementById('words-val').textContent = words;
-  } catch(e) { back.textContent = 'Erro de conexão'; }
+  } catch(e) {
+    back.textContent = e.message === 'NO_KEY' ? 'Configure a chave API.' : 'Erro de conexão.';
+  }
 }
 
 function addVocab() {
@@ -783,10 +514,9 @@ function addVocab() {
   renderVocab();
 }
 
-// ── CONFIG ──
 function saveApiKey() {
   const k = document.getElementById('api-key-input').value.trim();
-  if (!k) return;
+  if (!k) { alert('Cole sua chave API no campo.'); return; }
   localStorage.setItem('mf_apikey', k);
   updateApiStatus();
   alert('Chave API salva com sucesso!');
