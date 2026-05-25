@@ -19,7 +19,7 @@
     --border: rgba(0,0,0,0.08); --text: #1a1a2e; --text2: #6b6b8a;
     --nav-h: 64px; --safe-bottom: env(safe-area-inset-bottom, 0px);
   }
-  .app { display: flex; flex-direction: column; height: 100%; max-width: 430px; margin: 0 auto; background: var(--bg); position: relative; box-shadow: 0 0 40px rgba(127,119,221,0.15); }
+  .app { display: flex; flex-direction: column; height: 100%; max-width: 430px; margin: 0 auto; background: var(--bg); position: relative; }
   .app-header { padding: 52px 20px 16px; background: var(--accent); color: white; flex-shrink: 0; }
   .app-header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
   .app-header p { font-size: 13px; opacity: 0.8; margin-top: 2px; }
@@ -30,7 +30,6 @@
   .nav-btn { flex: 1; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 10px; color: var(--text2); transition: color 0.2s; padding-top: 8px; }
   .nav-btn i { font-size: 22px; }
   .nav-btn.active { color: var(--accent); }
-  .card { background: var(--bg); border-radius: 16px; padding: 16px; margin-bottom: 12px; border: 0.5px solid var(--border); }
   .hero { background: linear-gradient(135deg, #7F77DD 0%, #534AB7 100%); border-radius: 20px; padding: 20px; margin-bottom: 16px; color: white; }
   .hero-label { font-size: 12px; opacity: 0.75; margin-bottom: 4px; }
   .hero-title { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
@@ -103,13 +102,13 @@
   .api-section { background: var(--bg); border-radius: 16px; padding: 16px; border: 0.5px solid var(--border); margin-bottom: 12px; }
   .api-section label { font-size: 13px; font-weight: 600; color: var(--text); display: block; margin-bottom: 6px; }
   .api-section input { width: 100%; font-size: 13px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg2); color: var(--text); outline: none; font-family: monospace; }
-  .api-section input:focus { border-color: var(--accent); }
   .save-btn { width: 100%; margin-top: 10px; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; }
   .api-hint { font-size: 12px; color: var(--text2); margin-top: 8px; line-height: 1.5; }
   .api-status { font-size: 13px; font-weight: 600; padding: 8px 12px; border-radius: 10px; margin-bottom: 10px; text-align: center; }
   .api-status.ok { background: var(--teal-light); color: var(--teal); }
   .api-status.missing { background: var(--coral-light); color: var(--coral); }
   .error-box { background: var(--coral-light); color: var(--coral); border-radius: 10px; padding: 10px 14px; font-size: 13px; margin-bottom: 10px; display: none; }
+  .groq-badge { background: var(--teal-light); color: var(--teal); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 99px; display: inline-block; margin-bottom: 8px; }
 </style>
 </head>
 <body>
@@ -186,7 +185,7 @@
         <div class="phase-detail">
           <strong>Objetivo:</strong> conversação funcional sem travar.
           <div class="pills"><span class="pill purple">Top 1000 palavras</span><span class="pill purple">Verbos no passado</span><span class="pill purple">Storytelling simples</span><span class="pill purple">Shadowing</span></div>
-          <p>Shadowing: imitar nativos em áudio para treinar ritmo e pronúncia. 15 min/dia de conversação. Debates simples com IA.</p>
+          <p>Shadowing: imitar nativos em áudio. 15 min/dia de conversação. Debates simples com IA.</p>
         </div>
       </div>
       <div class="phase-card" onclick="togglePhase(this)">
@@ -198,7 +197,7 @@
         <div class="phase-detail">
           <strong>Objetivo:</strong> pensar no idioma, não traduzir.
           <div class="pills"><span class="pill amber">2000 palavras ativas</span><span class="pill amber">Gírias e expressões</span><span class="pill amber">Debates com IA</span><span class="pill amber">Diário no idioma</span></div>
-          <p>Escrever 5 linhas/dia no idioma. Conteúdo sem legenda 50% do tempo. Debates sobre TI e liderança em contexto profissional.</p>
+          <p>Escrever 5 linhas/dia. Conteúdo sem legenda 50% do tempo. Debates sobre TI e liderança.</p>
         </div>
       </div>
       <div class="phase-card" onclick="togglePhase(this)">
@@ -210,7 +209,7 @@
         <div class="phase-detail">
           <strong>Objetivo:</strong> conforto real, fluência de elite.
           <div class="pills"><span class="pill coral">3000+ palavras</span><span class="pill coral">Nuance e humor</span><span class="pill coral">Apresentações</span><span class="pill coral">Contexto profissional</span></div>
-          <p>Reuniões simuladas, apresentações técnicas de TI/DEX. Leitura sem dicionário. Você está no top 1% dos aprendizes.</p>
+          <p>Reuniões simuladas, apresentações técnicas de TI/DEX. Leitura sem dicionário. Top 1% dos aprendizes.</p>
         </div>
       </div>
     </div>
@@ -218,6 +217,7 @@
     <!-- CHAT -->
     <div id="screen-chat" class="screen">
       <div class="chat-controls">
+        <div style="margin-bottom:8px;"><span class="groq-badge">⚡ IA Gratuita via Groq</span></div>
         <div class="lang-row">
           <label>Idioma:</label>
           <select id="lang-select" onchange="updateLangLabel()">
@@ -262,10 +262,10 @@
       <div class="sec-title">Configuração</div>
       <div id="api-status-bar"></div>
       <div class="api-section">
-        <label><i class="ti ti-key"></i> Chave API Anthropic</label>
-        <input type="password" id="api-key-input" placeholder="sk-ant-api03-..."/>
+        <label><i class="ti ti-key"></i> Chave API Groq (gratuita)</label>
+        <input type="password" id="api-key-input" placeholder="gsk_..."/>
         <button class="save-btn" onclick="saveApiKey()">Salvar chave</button>
-        <p class="api-hint">Necessária para conversação e tradução com IA.<br>Obtenha em <strong>console.anthropic.com</strong> → API Keys.<br>Salva apenas no seu dispositivo.</p>
+        <p class="api-hint">Gratuita e sem cartão de crédito.<br>Obtenha em <strong>console.groq.com</strong> → API Keys.<br>Salva apenas no seu dispositivo.</p>
       </div>
       <div class="api-section">
         <label><i class="ti ti-language"></i> Idioma padrão</label>
@@ -342,8 +342,8 @@ function restoreDoneTasks() {
 function updateApiStatus() {
   const bar = document.getElementById('api-status-bar');
   if (bar) bar.innerHTML = getApiKey()
-    ? '<div class="api-status ok"><i class="ti ti-check"></i> Chave API configurada</div>'
-    : '<div class="api-status missing"><i class="ti ti-alert-triangle"></i> Chave API não configurada</div>';
+    ? '<div class="api-status ok"><i class="ti ti-check"></i> Chave Groq configurada ✓</div>'
+    : '<div class="api-status missing"><i class="ti ti-alert-triangle"></i> Chave Groq não configurada</div>';
 }
 
 function showScreen(id, btn) {
@@ -355,8 +355,7 @@ function showScreen(id, btn) {
   if (id === 'config') {
     const k = getApiKey();
     if (k) document.getElementById('api-key-input').value = k;
-    const dl = localStorage.getItem('mf_deflang') || 'English';
-    document.getElementById('default-lang').value = dl;
+    document.getElementById('default-lang').value = localStorage.getItem('mf_deflang') || 'English';
     updateApiStatus();
   }
 }
@@ -380,14 +379,15 @@ function markDone(id, pts) {
 }
 
 function togglePhase(card) { card.querySelector('.phase-detail').classList.toggle('open'); }
+
 function setMode(mode) {
   chatMode = mode;
   document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('mode-' + mode).classList.add('active');
 }
+
 function updateLangLabel() {
-  const v = document.getElementById('lang-select').value;
-  document.getElementById('hero-lang').textContent = 'Idioma ativo: ' + langLabel(v);
+  document.getElementById('hero-lang').textContent = 'Idioma ativo: ' + langLabel(document.getElementById('lang-select').value);
 }
 
 function addMsg(text, role) {
@@ -404,42 +404,32 @@ function showChatError(msg) {
   const box = document.getElementById('chat-error');
   box.textContent = msg;
   box.style.display = 'block';
-  setTimeout(() => box.style.display = 'none', 5000);
+  setTimeout(() => box.style.display = 'none', 6000);
 }
 
-async function callClaude(systemPrompt, messages) {
+async function callGroq(systemPrompt, messages) {
   const apiKey = getApiKey();
   if (!apiKey) throw new Error('NO_KEY');
-
-  // Try direct first, fallback to proxy
-  const endpoints = [
-    { url: 'https://api.anthropic.com/v1/messages', headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' } },
-    { url: 'https://corsproxy.io/?https://api.anthropic.com/v1/messages', headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' } }
-  ];
-
-  const body = JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: systemPrompt, messages });
-
-  for (const ep of endpoints) {
-    try {
-      const res = await fetch(ep.url, { method: 'POST', headers: ep.headers, body });
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        if (res.status === 401) throw new Error('INVALID_KEY');
-        throw new Error(err?.error?.message || 'API_ERROR');
-      }
-      const data = await res.json();
-      return data.content?.find(b => b.type === 'text')?.text || '';
-    } catch(e) {
-      if (e.message === 'INVALID_KEY' || e.message === 'NO_KEY') throw e;
-      // try next endpoint
-    }
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey },
+    body: JSON.stringify({
+      model: 'llama-3.3-70b-versatile',
+      max_tokens: 500,
+      messages: [{ role: 'system', content: systemPrompt }, ...messages]
+    })
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    if (res.status === 401) throw new Error('INVALID_KEY');
+    throw new Error(err?.error?.message || 'API_ERROR');
   }
-  throw new Error('NETWORK_ERROR');
+  const data = await res.json();
+  return data.choices?.[0]?.message?.content || '';
 }
 
 async function sendMsg() {
-  const apiKey = getApiKey();
-  if (!apiKey) { showChatError('Configure sua chave API na aba Config primeiro.'); return; }
+  if (!getApiKey()) { showChatError('Configure sua chave Groq na aba Config primeiro.'); return; }
   const input = document.getElementById('chat-input');
   const text = input.value.trim();
   if (!text) return;
@@ -448,9 +438,9 @@ async function sendMsg() {
 
   const lang = document.getElementById('lang-select').value;
   const modes = {
-    casual: `Converse de forma casual. Responda SEMPRE em ${lang} (com tradução PT-BR ao final entre parênteses). Corrija erros integrando a forma correta naturalmente.`,
-    business: `Simule reunião corporativa de TI. Responda em ${lang} (com tradução PT-BR). Use vocabulário executivo profissional.`,
-    correct: `Identifique erros gramaticais do usuário e mostre a correção. Depois responda em ${lang} naturalmente.`
+    casual: `Converse de forma casual e amigável. Responda SEMPRE em ${lang} (com tradução PT-BR ao final entre parênteses). Corrija erros integrando a forma correta naturalmente na conversa.`,
+    business: `Simule uma reunião corporativa de TI. Responda em ${lang} (com tradução PT-BR). Use vocabulário executivo e profissional.`,
+    correct: `Primeiro identifique erros gramaticais do usuário e mostre a correção de forma breve. Depois responda naturalmente em ${lang} com tradução PT-BR.`
   };
 
   const loading = addMsg('digitando...', 'ai loading');
@@ -460,17 +450,17 @@ async function sendMsg() {
   });
 
   try {
-    const reply = await callClaude(
-      `Você é um tutor de idiomas especialista nativo em ${lang}. ${modes[chatMode]} Seja conciso (máx 3 frases).`,
+    const reply = await callGroq(
+      `Você é um tutor de idiomas especialista nativo em ${lang}. ${modes[chatMode]} Seja conciso (máx 3 frases). Nunca quebre o fluxo com explicações longas.`,
       history
     );
     loading.textContent = reply;
     loading.classList.remove('loading');
   } catch(e) {
     loading.remove();
-    if (e.message === 'NO_KEY') showChatError('Configure sua chave API na aba Config.');
-    else if (e.message === 'INVALID_KEY') showChatError('Chave API inválida. Verifique na aba Config.');
-    else showChatError('Erro de conexão. Verifique sua internet e tente novamente.');
+    if (e.message === 'NO_KEY') showChatError('Configure sua chave Groq na aba Config.');
+    else if (e.message === 'INVALID_KEY') showChatError('Chave Groq inválida. Verifique na aba Config.');
+    else showChatError('Erro de conexão. Verifique sua internet.');
   }
 }
 
@@ -493,14 +483,14 @@ async function flipCard(card, word, i) {
   if (back.dataset.loaded) return;
   back.textContent = '...';
   try {
-    const reply = await callClaude('Você é um tradutor conciso.', [{ role: 'user', content: `Traduza para PT-BR e dê exemplo curto de uso: "${word}". Formato: Tradução: X | Ex: Y` }]);
+    const reply = await callGroq('Você é um tradutor conciso.', [{ role: 'user', content: `Traduza para PT-BR e dê exemplo curto de uso: "${word}". Formato: Tradução: X | Ex: Y` }]);
     back.textContent = reply;
     back.dataset.loaded = '1';
     words++;
     localStorage.setItem('mf_words', words);
     document.getElementById('words-val').textContent = words;
   } catch(e) {
-    back.textContent = e.message === 'NO_KEY' ? 'Configure a chave API.' : 'Erro de conexão.';
+    back.textContent = e.message === 'NO_KEY' ? 'Configure a chave Groq.' : 'Erro de conexão.';
   }
 }
 
@@ -516,10 +506,10 @@ function addVocab() {
 
 function saveApiKey() {
   const k = document.getElementById('api-key-input').value.trim();
-  if (!k) { alert('Cole sua chave API no campo.'); return; }
+  if (!k) { alert('Cole sua chave Groq no campo.'); return; }
   localStorage.setItem('mf_apikey', k);
   updateApiStatus();
-  alert('Chave API salva com sucesso!');
+  alert('Chave Groq salva com sucesso!');
 }
 
 function saveLang() {
@@ -533,9 +523,7 @@ function saveLang() {
 function resetProgress() {
   if (!confirm('Tem certeza? Isso vai zerar seu progresso.')) return;
   xp = 0; streak = 0; words = 0;
-  localStorage.setItem('mf_xp', 0);
-  localStorage.setItem('mf_streak', 0);
-  localStorage.setItem('mf_words', 0);
+  ['mf_xp','mf_streak','mf_words'].forEach(k => localStorage.setItem(k, 0));
   localStorage.setItem('mf_start', new Date().toISOString().split('T')[0]);
   doneTasks = [];
   document.getElementById('streak-val').textContent = 0;
