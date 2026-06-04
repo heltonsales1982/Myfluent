@@ -33,7 +33,7 @@ export class ChatManager {
     const modePrompts: Record<ChatMode, string> = {
       casual: `Converse de forma casual e amigável. Responda SEMPRE em ${language} (com tradução PT-BR ao final entre parênteses). Corrija erros integrando a forma correta naturalmente na conversa.`,
       business: `Simule uma reunião corporativa de TI. Responda em ${language} (com tradução PT-BR). Use vocabulário executivo e profissional.`,
-      correct: `Primeiro identifique erros gramaticais do usuário e mostre a correção de forma breve. Depois responda naturalmente em ${language} com tradução PT-BR.`
+      correct: `Primeiro identifique erros gramaticais do usuário e mostre a correção de forma breve. Depois responda naturalmente em ${language} com tradução PT-BR.`,
     };
 
     return `Você é um tutor de idiomas especialista nativo em ${language}. ${modePrompts[this.currentMode]} Seja conciso (máx 3 frases). Nunca quebre o fluxo com explicações longas.`;
@@ -69,7 +69,7 @@ export class ChatManager {
 
     const systemPrompt = this.getSystemPrompt(language);
     const response = await callGroqAPI(systemPrompt, this.messages);
-    
+
     this.addMessage('assistant', response);
     return response;
   }

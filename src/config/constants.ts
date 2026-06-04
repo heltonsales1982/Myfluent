@@ -16,7 +16,7 @@ export const CONFIG = {
     'I need help',
     'Good morning',
     'See you later',
-    'Well done'
+    'Well done',
   ],
   GROQ_API_URL: 'https://api.groq.com/openai/v1/chat/completions',
   GROQ_MODEL: 'llama-3.3-70b-versatile',
@@ -30,8 +30,8 @@ export const CONFIG = {
     API_KEY: 'mf_apikey',
     DEFAULT_LANG: 'mf_deflang',
     DONE_TASKS_PREFIX: 'mf_done_',
-    STREAK_DATE_PREFIX: 'mf_streak_'
-  }
+    STREAK_DATE_PREFIX: 'mf_streak_',
+  },
 } as const;
 
 export const LANGUAGE_LABELS: Record<string, string> = {
@@ -41,12 +41,12 @@ export const LANGUAGE_LABELS: Record<string, string> = {
   Italian: 'Italiano',
   German: 'Alemão',
   'Mandarin Chinese': 'Mandarim',
-  Japanese: 'Japonês'
+  Japanese: 'Japonês',
 } as const;
 
 export const TASK_POINTS: Record<string, number> = {
   t1: 20,
   t2: 20,
   t3: 15,
-  t4: 15
+  t4: 15,
 } as const;
