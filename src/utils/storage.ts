@@ -5,8 +5,10 @@
 import { CONFIG } from '../config/constants';
 
 /**
- * Simple XOR encryption for API keys (not production-grade, but better than plaintext)
- * In production, use Web Crypto API or a proper encryption library
+ * Simple XOR obfuscation for API keys stored in localStorage.
+ * WARNING: This is NOT real encryption — the key is visible in source.
+ * It only deters casual inspection. In production, use the Web Crypto API
+ * with a user-derived key or store secrets server-side.
  */
 function xorEncrypt(text: string, key: string): string {
   let result = '';

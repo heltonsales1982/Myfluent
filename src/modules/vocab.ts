@@ -20,10 +20,9 @@ export class VocabManager {
    * Initialize vocab manager
    */
   constructor() {
-    this.vocabList = SecureStorage.getJSON<string[]>(
-      CONFIG.STORAGE_KEYS.VOCAB,
-      [...CONFIG.DEFAULT_VOCAB]
-    );
+    this.vocabList = SecureStorage.getJSON<string[]>(CONFIG.STORAGE_KEYS.VOCAB, [
+      ...CONFIG.DEFAULT_VOCAB,
+    ]);
   }
 
   /**
@@ -38,7 +37,7 @@ export class VocabManager {
    */
   addWord(word: string): boolean {
     const sanitized = sanitizeHTML(word.trim());
-    
+
     if (!validateInput(sanitized, 1, 100)) {
       return false;
     }

@@ -3,7 +3,13 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { sanitizeHTML, validateApiKey, validateInput, isValidLanguage, isValidChatMode } from '../utils/validation';
+import {
+  sanitizeHTML,
+  validateApiKey,
+  validateInput,
+  isValidLanguage,
+  isValidChatMode,
+} from '../utils/validation';
 
 describe('Validation Utilities', () => {
   describe('sanitizeHTML', () => {

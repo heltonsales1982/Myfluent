@@ -22,7 +22,7 @@ export function validateApiKey(apiKey: string): boolean {
 /**
  * Validate that input is not empty and has reasonable length
  */
-export function validateInput(input: string, minLength: number = 1, maxLength: number = 1000): boolean {
+export function validateInput(input: string, minLength = 1, maxLength = 1000): boolean {
   const trimmed = input.trim();
   return trimmed.length >= minLength && trimmed.length <= maxLength;
 }
@@ -38,7 +38,15 @@ export function escapeRegex(string: string): string {
  * Validate language code
  */
 export function isValidLanguage(lang: string): boolean {
-  const validLanguages = ['English', 'Spanish', 'French', 'Italian', 'German', 'Mandarin Chinese', 'Japanese'];
+  const validLanguages = [
+    'English',
+    'Spanish',
+    'French',
+    'Italian',
+    'German',
+    'Mandarin Chinese',
+    'Japanese',
+  ];
   return validLanguages.includes(lang);
 }
 
