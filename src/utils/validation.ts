@@ -2,6 +2,8 @@
  * Input validation and XSS sanitization utilities
  */
 
+import { VALID_LANGUAGES, VALID_CHAT_MODES } from '../config/constants';
+
 /**
  * Sanitize HTML to prevent XSS attacks
  */
@@ -22,7 +24,7 @@ export function validateApiKey(apiKey: string): boolean {
 /**
  * Validate that input is not empty and has reasonable length
  */
-export function validateInput(input: string, minLength: number = 1, maxLength: number = 1000): boolean {
+export function validateInput(input: string, minLength = 1, maxLength = 1000): boolean {
   const trimmed = input.trim();
   return trimmed.length >= minLength && trimmed.length <= maxLength;
 }
@@ -38,14 +40,12 @@ export function escapeRegex(string: string): string {
  * Validate language code
  */
 export function isValidLanguage(lang: string): boolean {
-  const validLanguages = ['English', 'Spanish', 'French', 'Italian', 'German', 'Mandarin Chinese', 'Japanese'];
-  return validLanguages.includes(lang);
+  return VALID_LANGUAGES.includes(lang);
 }
 
 /**
  * Validate chat mode
  */
 export function isValidChatMode(mode: string): boolean {
-  const validModes = ['casual', 'business', 'correct'];
-  return validModes.includes(mode);
+  return (VALID_CHAT_MODES as readonly string[]).includes(mode);
 }

@@ -2,11 +2,19 @@
  * UI module for managing DOM interactions
  */
 
-import { ChatManager } from './chat';
+import { ChatManager, ChatMode } from './chat';
 import { VocabManager } from './vocab';
 import { ProgressManager } from './progress';
 import { SecureStorage } from '../utils/storage';
-import { CONFIG, LANGUAGE_LABELS } from '../config/constants';
+import {
+  CONFIG,
+  LANGUAGES,
+  TASK_IDS,
+  TASK_BTN_DONE,
+  TASK_BTN_PENDING,
+  getLanguageLabel,
+  getApiErrorMessage,
+} from '../config/constants';
 import { APIError } from '../utils/api';
 
 export class UIManager {
@@ -28,43 +36,59 @@ export class UIManager {
    * Initialize UI
    */
   init(): void {
-    this.updateStats();
-    this.updateDayDisplay();
-    this.updateLanguageDisplay();
+    this.populateLanguageSelects();
+    this.refreshStats();
     this.restoreDoneTasks();
     this.updateApiStatus();
     this.attachEventListeners();
   }
 
   /**
-   * Update statistics display
+   * Populate language select elements from LANGUAGES constant
    */
-  updateStats(): void {
-    const streakEl = document.getElementById('streak-val');
-    const wordsEl = document.getElementById('words-val');
-    
-    if (streakEl) streakEl.textContent = this.progressManager.getStreak().toString();
-    if (wordsEl) wordsEl.textContent = this.progressManager.getWords().toString();
+  private populateLanguageSelects(): void {
+    const selects = [
+      document.getElementById('lang-select'),
+      document.getElementById('default-lang'),
+    ];
+    for (const select of selects) {
+      if (!select) continue;
+      select.innerHTML = '';
+      for (const lang of LANGUAGES) {
+        const opt = document.createElement('option');
+        opt.value = lang.value;
+        opt.textContent = lang.label;
+        select.appendChild(opt);
+      }
+    }
   }
 
   /**
-   * Update day display
+   * Update all stat displays (streak, words, day, language, XP)
    */
-  updateDayDisplay(): void {
+  refreshStats(): void {
+    const streakEl = document.getElementById('streak-val');
+    const wordsEl = document.getElementById('words-val');
     const dayEl = document.getElementById('hero-day');
-    if (dayEl) {
+
+    if (streakEl) streakEl.textContent = this.progressManager.getStreak().toString();
+    if (wordsEl) wordsEl.textContent = this.progressManager.getWords().toString();
+    if (dayEl)
       dayEl.textContent = `Dia ${this.progressManager.getDayNumber()} de ${CONFIG.TOTAL_DAYS}`;
-    }
+
+    this.updateLanguageDisplay();
+    this.updateXPBar();
   }
 
   /**
    * Update language display
    */
-  updateLanguageDisplay(): void {
+  updateLanguageDisplay(lang?: string): void {
     const langEl = document.getElementById('hero-lang');
-    const defaultLang = SecureStorage.getItem(CONFIG.STORAGE_KEYS.DEFAULT_LANG) || CONFIG.DEFAULT_LANGUAGE;
+    const activeLang =
+      lang || SecureStorage.getItem(CONFIG.STORAGE_KEYS.DEFAULT_LANG) || CONFIG.DEFAULT_LANGUAGE;
     if (langEl) {
-      langEl.textContent = `Idioma ativo: ${LANGUAGE_LABELS[defaultLang] || defaultLang}`;
+      langEl.textContent = `Idioma ativo: ${getLanguageLabel(activeLang)}`;
     }
   }
 
@@ -74,7 +98,7 @@ export class UIManager {
   updateXPBar(): void {
     const fillEl = document.getElementById('xp-fill');
     const valEl = document.getElementById('xp-val');
-    
+
     if (fillEl && valEl) {
       const percentage = this.progressManager.getXPPercentage();
       fillEl.style.width = `${Math.min(100, percentage)}%`;
@@ -83,17 +107,27 @@ export class UIManager {
   }
 
   /**
+   * Set a task button to done or pending state
+   */
+  private setTaskBtn(id: string, done: boolean): void {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    if (done) {
+      btn.classList.add('done');
+      btn.innerHTML = TASK_BTN_DONE;
+    } else {
+      btn.classList.remove('done');
+      btn.innerHTML = TASK_BTN_PENDING;
+    }
+  }
+
+  /**
    * Restore done tasks from storage
    */
   restoreDoneTasks(): void {
-    const taskIds = ['t1', 't2', 't3', 't4'];
-    taskIds.forEach(id => {
+    TASK_IDS.forEach((id) => {
       if (this.progressManager.isTaskDone(id)) {
-        const btn = document.getElementById(id);
-        if (btn) {
-          btn.classList.add('done');
-          btn.innerHTML = '<i class="ti ti-check"></i> Concluído';
-        }
+        this.setTaskBtn(id, true);
       }
     });
   }
@@ -116,13 +150,13 @@ export class UIManager {
    */
   showScreen(screenId: string, navBtn: HTMLElement): void {
     // Hide all screens
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.screen').forEach((s) => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach((b) => b.classList.remove('active'));
 
     // Show selected screen
     const screen = document.getElementById(`screen-${screenId}`);
     if (screen) screen.classList.add('active');
-    
+
     if (navBtn) navBtn.classList.add('active');
 
     // Screen-specific actions
@@ -139,16 +173,17 @@ export class UIManager {
   populateConfig(): void {
     const apiKeyInput = document.getElementById('api-key-input') as HTMLInputElement;
     const defaultLangSelect = document.getElementById('default-lang') as HTMLSelectElement;
-    
+
     if (apiKeyInput) {
       const key = SecureStorage.getApiKey();
       if (key) apiKeyInput.value = key;
     }
-    
+
     if (defaultLangSelect) {
-      defaultLangSelect.value = SecureStorage.getItem(CONFIG.STORAGE_KEYS.DEFAULT_LANG) || CONFIG.DEFAULT_LANGUAGE;
+      defaultLangSelect.value =
+        SecureStorage.getItem(CONFIG.STORAGE_KEYS.DEFAULT_LANG) || CONFIG.DEFAULT_LANGUAGE;
     }
-    
+
     this.updateApiStatus();
   }
 
@@ -159,15 +194,8 @@ export class UIManager {
     if (this.progressManager.isTaskDone(taskId)) return;
 
     this.progressManager.markTaskDone(taskId);
-    
-    const btn = document.getElementById(taskId);
-    if (btn) {
-      btn.classList.add('done');
-      btn.innerHTML = '<i class="ti ti-check"></i> Concluído';
-    }
-
-    this.updateXPBar();
-    this.updateStats();
+    this.setTaskBtn(taskId, true);
+    this.refreshStats();
   }
 
   /**
@@ -184,9 +212,9 @@ export class UIManager {
    * Set chat mode
    */
   setChatMode(mode: string): void {
-    this.chatManager.setMode(mode as any);
-    
-    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    this.chatManager.setMode(mode as ChatMode);
+
+    document.querySelectorAll('.mode-btn').forEach((b) => b.classList.remove('active'));
     const activeBtn = document.getElementById(`mode-${mode}`);
     if (activeBtn) activeBtn.classList.add('active');
   }
@@ -203,7 +231,7 @@ export class UIManager {
     div.textContent = text;
     messagesContainer.appendChild(div);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    
+
     return div;
   }
 
@@ -248,29 +276,24 @@ export class UIManager {
    */
   async flipVocabCard(card: HTMLElement, word: string, index: number): Promise<void> {
     card.classList.toggle('flipped');
-    
+
     if (!card.classList.contains('flipped')) return;
 
     const back = document.getElementById(`vb-${index}`);
     if (!back || back.dataset.loaded) return;
 
     back.textContent = '...';
-    
+
     try {
       const translation = await this.vocabManager.getTranslation(word);
       back.textContent = translation;
       back.dataset.loaded = '1';
-      
+
       this.vocabManager.incrementWordCount();
-      this.updateStats();
+      this.refreshStats();
     } catch (error) {
-      if (error instanceof APIError) {
-        back.textContent = error.code === 'NO_KEY' 
-          ? 'Configure a chave Groq.' 
-          : 'Erro de conexão.';
-      } else {
-        back.textContent = 'Erro ao carregar tradução.';
-      }
+      back.textContent =
+        error instanceof APIError ? getApiErrorMessage(error.code) : getApiErrorMessage('DEFAULT');
     }
   }
 
@@ -279,7 +302,7 @@ export class UIManager {
    */
   private attachEventListeners(): void {
     // Navigation buttons
-    document.querySelectorAll('.nav-btn').forEach(btn => {
+    document.querySelectorAll('.nav-btn').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         const target = e.currentTarget as HTMLElement;
         const screenId = target.dataset.screen;
@@ -288,7 +311,7 @@ export class UIManager {
     });
 
     // Task buttons
-    document.querySelectorAll('.check-btn').forEach(btn => {
+    document.querySelectorAll('.check-btn').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         const target = e.currentTarget as HTMLElement;
         const taskId = target.dataset.task;
@@ -298,12 +321,12 @@ export class UIManager {
     });
 
     // Phase cards
-    document.querySelectorAll('.phase-card').forEach(card => {
+    document.querySelectorAll('.phase-card').forEach((card) => {
       card.addEventListener('click', () => this.togglePhase(card as HTMLElement));
     });
 
     // Chat mode buttons
-    document.querySelectorAll('.mode-btn').forEach(btn => {
+    document.querySelectorAll('.mode-btn').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         const target = e.currentTarget as HTMLElement;
         const mode = target.dataset.mode;
@@ -314,11 +337,11 @@ export class UIManager {
     // Send button
     const sendBtn = document.getElementById('send-btn');
     const chatInput = document.getElementById('chat-input');
-    
+
     if (sendBtn) {
       sendBtn.addEventListener('click', () => this.handleSendMessage());
     }
-    
+
     if (chatInput) {
       chatInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') this.handleSendMessage();
@@ -328,11 +351,11 @@ export class UIManager {
     // Add vocab button
     const addVocabBtn = document.getElementById('add-vocab-btn');
     const vocabInput = document.getElementById('vocab-input');
-    
+
     if (addVocabBtn) {
       addVocabBtn.addEventListener('click', () => this.handleAddVocab());
     }
-    
+
     if (vocabInput) {
       vocabInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') this.handleAddVocab();
@@ -361,11 +384,7 @@ export class UIManager {
     const langSelect = document.getElementById('lang-select');
     if (langSelect) {
       langSelect.addEventListener('change', () => {
-        const lang = (langSelect as HTMLSelectElement).value;
-        const langEl = document.getElementById('hero-lang');
-        if (langEl) {
-          langEl.textContent = `Idioma ativo: ${LANGUAGE_LABELS[lang] || lang}`;
-        }
+        this.updateLanguageDisplay((langSelect as HTMLSelectElement).value);
       });
     }
 
@@ -413,17 +432,9 @@ export class UIManager {
       loading.classList.remove('loading');
     } catch (error) {
       loading.remove();
-      if (error instanceof APIError) {
-        if (error.code === 'NO_KEY') {
-          this.showChatError('Configure sua chave Groq na aba Config.');
-        } else if (error.code === 'INVALID_KEY') {
-          this.showChatError('Chave Groq inválida. Verifique na aba Config.');
-        } else {
-          this.showChatError(error.message);
-        }
-      } else {
-        this.showChatError('Erro de conexão. Verifique sua internet.');
-      }
+      this.showChatError(
+        error instanceof APIError ? getApiErrorMessage(error.code) : getApiErrorMessage('DEFAULT')
+      );
     }
   }
 
@@ -470,18 +481,14 @@ export class UIManager {
 
     const lang = select.value;
     SecureStorage.setItem(CONFIG.STORAGE_KEYS.DEFAULT_LANG, lang);
-    
-    const langEl = document.getElementById('hero-lang');
-    if (langEl) {
-      langEl.textContent = `Idioma ativo: ${LANGUAGE_LABELS[lang] || lang}`;
-    }
+    this.updateLanguageDisplay(lang);
 
     const langSelect = document.getElementById('lang-select') as HTMLSelectElement;
     if (langSelect) {
       langSelect.value = lang;
     }
 
-    alert(`Idioma padrão salvo: ${LANGUAGE_LABELS[lang] || lang}`);
+    alert(`Idioma padrão salvo: ${getLanguageLabel(lang)}`);
   }
 
   /**
@@ -491,25 +498,8 @@ export class UIManager {
     if (!confirm('Tem certeza? Isso vai zerar seu progresso.')) return;
 
     this.progressManager.reset();
-    
-    const streakEl = document.getElementById('streak-val');
-    const wordsEl = document.getElementById('words-val');
-    const dayEl = document.getElementById('hero-day');
-    
-    if (streakEl) streakEl.textContent = '0';
-    if (wordsEl) wordsEl.textContent = '0';
-    if (dayEl) dayEl.textContent = `Dia 1 de ${CONFIG.TOTAL_DAYS}`;
-
-    this.updateXPBar();
-
-    const taskIds = ['t1', 't2', 't3', 't4'];
-    taskIds.forEach(id => {
-      const btn = document.getElementById(id);
-      if (btn) {
-        btn.classList.remove('done');
-        btn.innerHTML = '<i class="ti ti-check"></i> Marcar feito';
-      }
-    });
+    this.refreshStats();
+    TASK_IDS.forEach((id) => this.setTaskBtn(id, false));
 
     alert('Progresso reiniciado!');
   }

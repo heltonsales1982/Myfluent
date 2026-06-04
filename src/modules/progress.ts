@@ -6,9 +6,9 @@ import { SecureStorage } from '../utils/storage';
 import { CONFIG, TASK_POINTS } from '../config/constants';
 
 export class ProgressManager {
-  private xp: number = 0;
-  private streak: number = 0;
-  private words: number = 0;
+  private xp = 0;
+  private streak = 0;
+  private words = 0;
   private startDate: string;
   private doneTasks: string[] = [];
 
@@ -19,9 +19,11 @@ export class ProgressManager {
     this.xp = SecureStorage.getNumber(CONFIG.STORAGE_KEYS.XP, 0);
     this.streak = SecureStorage.getNumber(CONFIG.STORAGE_KEYS.STREAK, 0);
     this.words = SecureStorage.getNumber(CONFIG.STORAGE_KEYS.WORDS, 0);
-    this.startDate = SecureStorage.getItem(CONFIG.STORAGE_KEYS.START_DATE) || new Date().toISOString().split('T')[0];
+    this.startDate =
+      SecureStorage.getItem(CONFIG.STORAGE_KEYS.START_DATE) ||
+      new Date().toISOString().split('T')[0];
     this.doneTasks = this.loadTodayTasks();
-    
+
     if (!SecureStorage.getItem(CONFIG.STORAGE_KEYS.START_DATE)) {
       SecureStorage.setItem(CONFIG.STORAGE_KEYS.START_DATE, this.startDate);
     }
@@ -99,12 +101,9 @@ export class ProgressManager {
 
     const points = TASK_POINTS[taskId] || 0;
     this.doneTasks.push(taskId);
-    
+
     // Save to storage
-    SecureStorage.setJSON(
-      CONFIG.STORAGE_KEYS.DONE_TASKS_PREFIX + this.getToday(),
-      this.doneTasks
-    );
+    SecureStorage.setJSON(CONFIG.STORAGE_KEYS.DONE_TASKS_PREFIX + this.getToday(), this.doneTasks);
 
     // Add XP
     this.xp = Math.min(CONFIG.DAILY_XP_TARGET, this.xp + points);
@@ -122,7 +121,7 @@ export class ProgressManager {
   private incrementStreak(): void {
     const today = this.getToday();
     const streakKey = CONFIG.STORAGE_KEYS.STREAK_DATE_PREFIX + today;
-    
+
     if (!SecureStorage.getItem(streakKey)) {
       this.streak++;
       SecureStorage.setNumber(CONFIG.STORAGE_KEYS.STREAK, this.streak);
@@ -146,7 +145,7 @@ export class ProgressManager {
     this.streak = 0;
     this.words = 0;
     this.doneTasks = [];
-    this.startDate = new Date().toISOString().split('T')[0];
+    this.startDate = this.getToday();
 
     SecureStorage.setNumber(CONFIG.STORAGE_KEYS.XP, 0);
     SecureStorage.setNumber(CONFIG.STORAGE_KEYS.STREAK, 0);
