@@ -20,10 +20,9 @@ export class VocabManager {
    * Initialize vocab manager
    */
   constructor() {
-    this.vocabList = SecureStorage.getJSON<string[]>(
-      CONFIG.STORAGE_KEYS.VOCAB,
-      [...CONFIG.DEFAULT_VOCAB]
-    );
+    this.vocabList = SecureStorage.getJSON<string[]>(CONFIG.STORAGE_KEYS.VOCAB, [
+      ...CONFIG.DEFAULT_VOCAB,
+    ]);
   }
 
   /**
@@ -36,15 +35,15 @@ export class VocabManager {
   /**
    * Add a new word to vocabulary
    */
-  addWord(word: string): boolean {
+  addWord(word: string): true | 'invalid' | 'duplicate' {
     const sanitized = sanitizeHTML(word.trim());
-    
+
     if (!validateInput(sanitized, 1, 100)) {
-      return false;
+      return 'invalid';
     }
 
     if (this.vocabList.includes(sanitized)) {
-      return false;
+      return 'duplicate';
     }
 
     this.vocabList.unshift(sanitized);

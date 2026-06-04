@@ -24,7 +24,8 @@ function xorDecrypt(encrypted: string, key: string): string {
       result += String.fromCharCode(text.charCodeAt(i) ^ key.charCodeAt(i % key.length));
     }
     return result;
-  } catch {
+  } catch (error) {
+    console.warn('Failed to decrypt stored API key — data may be corrupt:', error);
     return '';
   }
 }
@@ -47,13 +48,23 @@ export class SecureStorage {
   /**
    * Set item in localStorage
    */
-  static setItem(key: string, value: string): void {
+  static setItem(key: string, value: string): boolean {
     try {
       localStorage.setItem(key, value);
+      return true;
     } catch (error) {
       console.error('Error writing to localStorage:', error);
+      if (
+        error instanceof DOMException &&
+        (error.name === 'QuotaExceededError' || error.code === 22)
+      ) {
+        SecureStorage.onStorageFull?.();
+      }
+      return false;
     }
   }
+
+  static onStorageFull: (() => void) | null = null;
 
   /**
    * Remove item from localStorage
@@ -88,7 +99,13 @@ export class SecureStorage {
    */
   static getNumber(key: string, defaultValue: number): number {
     const value = this.getItem(key);
-    return value ? parseInt(value, 10) : defaultValue;
+    if (value === null) return defaultValue;
+    const parsed = parseInt(value, 10);
+    if (isNaN(parsed)) {
+      console.warn(`Corrupt numeric value in localStorage key "${key}", using default`);
+      return defaultValue;
+    }
+    return parsed;
   }
 
   /**
