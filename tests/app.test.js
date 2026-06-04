@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Load the HTML fixture once so every test has the full DOM
-const html = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf-8');
+const html = fs.readFileSync(path.resolve(__dirname, '..', 'index.html'), 'utf-8');
 
 function setupDOM() {
   document.documentElement.innerHTML = html;
@@ -17,7 +17,7 @@ function setupDOM() {
 let app;
 beforeAll(() => {
   setupDOM();
-  app = require('./app');
+  app = require('../app');
 });
 
 beforeEach(() => {

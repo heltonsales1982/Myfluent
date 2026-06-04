@@ -1,9 +1,9 @@
 {
-  "name": "myfluent",
+  "name": "myfluent-tests",
   "version": "1.0.0",
-  "description": "MyFluent Flow — 180-day language fluency app",
+  "private": true,
+  "description": "Unit tests for MyFluent Flow",
   "scripts": {
-    "build": "echo 'Static site — no build step required'",
     "test": "jest --verbose",
     "test:coverage": "jest --coverage"
   },
