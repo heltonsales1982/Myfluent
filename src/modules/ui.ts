@@ -142,7 +142,7 @@ export class UIManager {
     
     if (apiKeyInput) {
       const key = SecureStorage.getApiKey();
-      if (key) apiKeyInput.value = key;
+      if (key) apiKeyInput.value = '\u2022'.repeat(12);
     }
     
     if (defaultLangSelect) {
@@ -235,10 +235,18 @@ export class UIManager {
       const card = document.createElement('div');
       card.className = 'vocab-card';
       card.dataset.index = index.toString();
-      card.innerHTML = `
-        <div class="vocab-front">${word}</div>
-        <div class="vocab-back" id="vb-${index}">Toque para traduzir via IA</div>
-      `;
+
+      const front = document.createElement('div');
+      front.className = 'vocab-front';
+      front.textContent = word;
+
+      const back = document.createElement('div');
+      back.className = 'vocab-back';
+      back.id = `vb-${index}`;
+      back.textContent = 'Toque para traduzir via IA';
+
+      card.appendChild(front);
+      card.appendChild(back);
       grid.appendChild(card);
     });
   }
@@ -451,7 +459,7 @@ export class UIManager {
     if (!input) return;
 
     const key = input.value.trim();
-    if (!key) {
+    if (!key || key === '\u2022'.repeat(12)) {
       alert('Cole sua chave Groq no campo.');
       return;
     }
