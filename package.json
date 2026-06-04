@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "MyFluent Flow — 180-day language fluency app",
   "scripts": {
+    "build": "echo 'Static site — no build step required'",
     "test": "jest --verbose",
     "test:coverage": "jest --coverage"
   },
