@@ -110,9 +110,10 @@ describe('VocabManager', () => {
       stubApiKey();
       mockFetch({
         ok: true,
-        json: () => Promise.resolve({
-          choices: [{ message: { content: 'Translation: Gato | Ex: The cat' } }],
-        }),
+        json: () =>
+          Promise.resolve({
+            choices: [{ message: { content: 'Translation: Gato | Ex: The cat' } }],
+          }),
       } as Response);
 
       const result = await vocab.getTranslation('Cat');
@@ -122,7 +123,8 @@ describe('VocabManager', () => {
     it('should throw when API fails', async () => {
       stubApiKey();
       mockFetch({
-        ok: false, status: 500,
+        ok: false,
+        status: 500,
         json: () => Promise.resolve({ error: { message: 'fail' } }),
       } as Response);
 
