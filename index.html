@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="MyFluent"/>
+<meta name="theme-color" content="#7F77DD"/>
+<title>MyFluent Flow</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
+
+  <script type="module" crossorigin src="/assets/index.f403c775.js"></script>
+  <link rel="stylesheet" href="/assets/index.1d6bb5cf.css">
+</head>
+<body>
+<div class="app">
+  <div class="app-header">
+    <h1>MyFluent Flow</h1>
+    <p>Sua trilha de 180 dias para fluência real</p>
+  </div>
+  <div class="screens">
+
+    <!-- HOME -->
+    <div id="screen-home" class="screen active">
+      <div class="hero">
+        <div class="hero-label" id="hero-lang">Idioma ativo: Inglês</div>
+        <div class="hero-title" id="hero-day">Dia 1 de 180</div>
+        <div class="hero-sub">Consistência é o único atalho real. 30 min hoje valem mais que 3h amanhã.</div>
+        <div class="xp-bar-wrap">
+          <div class="xp-labels"><span>XP do dia</span><span id="xp-val">0 / 70</span></div>
+          <div class="xp-bar"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-val" id="streak-val">0</div><div class="stat-lbl">dias seguidos 🔥</div></div>
+        <div class="stat-card"><div class="stat-val" id="words-val">0</div><div class="stat-lbl">palavras aprendidas</div></div>
+      </div>
+      <div class="sec-title">Tarefas de hoje</div>
+      <div class="daily-card">
+        <span class="tag vocab">Vocabulário</span>
+        <div class="daily-title">10 palavras de alta frequência</div>
+        <div class="daily-desc">As 1000 palavras mais usadas cobrem 85% das conversas. Vai na aba Vocab e adicione 10 palavras novas.</div>
+        <div class="check-row"><button class="check-btn" id="t1" data-task="t1" data-points="20"><i class="ti ti-check"></i> Marcar feito</button></div>
+      </div>
+      <div class="daily-card">
+        <span class="tag speaking">Speaking</span>
+        <div class="daily-title">Conversação com IA — 5 min</div>
+        <div class="daily-desc">Aba Conversar → troca pelo menos 8 mensagens no idioma alvo. Erre. É parte do processo.</div>
+        <div class="check-row"><button class="check-btn" id="t2" data-task="t2" data-points="20"><i class="ti ti-check"></i> Marcar feito</button></div>
+      </div>
+      <div class="daily-card">
+        <span class="tag listening">Listening</span>
+        <div class="daily-title">Input compreensível — 15 min</div>
+        <div class="daily-desc">Série, podcast ou YouTube em 70% de compreensão. Pausa, repete, anota 3 palavras novas no Vocab.</div>
+        <div class="check-row"><button class="check-btn" id="t3" data-task="t3" data-points="15"><i class="ti ti-check"></i> Marcar feito</button></div>
+      </div>
+      <div class="daily-card">
+        <span class="tag review">Revisão</span>
+        <div class="daily-title">Spaced repetition — flashcards</div>
+        <div class="daily-desc">Revise os cards do Vocab. Tente lembrar antes de virar. Evocação ativa = fixação real.</div>
+        <div class="check-row"><button class="check-btn" id="t4" data-task="t4" data-points="15"><i class="ti ti-check"></i> Marcar feito</button></div>
+      </div>
+    </div>
+
+    <!-- TRILHA -->
+    <div id="screen-trilha" class="screen">
+      <div class="sec-title">Trilha completa — 180 dias</div>
+      <div class="phase-card" data-phase="1">
+        <div class="phase-header">
+          <div class="phase-icon p1"><i class="ti ti-seedling"></i></div>
+          <div style="flex:1"><div class="phase-name">Fase 1 — Fundação</div><div class="phase-days">Dias 1–30 · Iniciante</div></div>
+          <i class="ti ti-chevron-down" style="color:var(--text2);font-size:18px;"></i>
+        </div>
+        <div class="phase-detail">
+          <strong>Objetivo:</strong> sobreviver numa conversa simples do dia a dia.
+          <div class="pills"><span class="pill teal">Top 300 palavras</span><span class="pill teal">Fonética básica</span><span class="pill teal">Saudações e rotina</span><span class="pill teal">Presente simples</span></div>
+          <p>Rotina: 10 palavras + 5 min conversação + 15 min input. Meta: 300 palavras ativas, conseguir se apresentar e falar sobre o dia.</p>
+        </div>
+      </div>
+      <div class="phase-card" data-phase="2">
+        <div class="phase-header">
+          <div class="phase-icon p2"><i class="ti ti-flame"></i></div>
+          <div style="flex:1"><div class="phase-name">Fase 2 — Aceleração</div><div class="phase-days">Dias 31–60 · Básico-Intermediário</div></div>
+          <i class="ti ti-chevron-down" style="color:var(--text2);font-size:18px;"></i>
+        </div>
+        <div class="phase-detail">
+          <strong>Objetivo:</strong> conversação funcional sem travar.
+          <div class="pills"><span class="pill purple">Top 1000 palavras</span><span class="pill purple">Verbos no passado</span><span class="pill purple">Storytelling simples</span><span class="pill purple">Shadowing</span></div>
+          <p>Shadowing: imitar nativos em áudio. 15 min/dia de conversação. Debates simples com IA.</p>
+        </div>
+      </div>
+      <div class="phase-card" data-phase="3">
+        <div class="phase-header">
+          <div class="phase-icon p3"><i class="ti ti-bolt"></i></div>
+          <div style="flex:1"><div class="phase-name">Fase 3 — Fluência Operacional</div><div class="phase-days">Dias 61–120 · Intermediário</div></div>
+          <i class="ti ti-chevron-down" style="color:var(--text2);font-size:18px;"></i>
+        </div>
+        <div class="phase-detail">
+          <strong>Objetivo:</strong> pensar no idioma, não traduzir.
+          <div class="pills"><span class="pill amber">2000 palavras ativas</span><span class="pill amber">Gírias e expressões</span><span class="pill amber">Debates com IA</span><span class="pill amber">Diário no idioma</span></div>
+          <p>Escrever 5 linhas/dia. Conteúdo sem legenda 50% do tempo. Debates sobre TI e liderança.</p>
+        </div>
+      </div>
+      <div class="phase-card" data-phase="4">
+        <div class="phase-header">
+          <div class="phase-icon p4"><i class="ti ti-trophy"></i></div>
+          <div style="flex:1"><div class="phase-name">Fase 4 — Domínio</div><div class="phase-days">Dias 121–180 · Avançado</div></div>
+          <i class="ti ti-chevron-down" style="color:var(--text2);font-size:18px;"></i>
+        </div>
+        <div class="phase-detail">
+          <strong>Objetivo:</strong> conforto real, fluência de elite.
+          <div class="pills"><span class="pill coral">3000+ palavras</span><span class="pill coral">Nuance e humor</span><span class="pill coral">Apresentações</span><span class="pill coral">Contexto profissional</span></div>
+          <p>Reuniões simuladas, apresentações técnicas de TI/DEX. Leitura sem dicionário. Top 1% dos aprendizes.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHAT -->
+    <div id="screen-chat" class="screen">
+      <div class="chat-controls">
+        <div style="margin-bottom:8px;"><span class="groq-badge">⚡ IA Gratuita via Groq</span></div>
+        <div class="lang-row">
+          <label for="lang-select">Idioma:</label>
+          <select id="lang-select">
+            <option value="English">Inglês</option>
+            <option value="Spanish">Espanhol</option>
+            <option value="French">Francês</option>
+            <option value="Italian">Italiano</option>
+            <option value="German">Alemão</option>
+            <option value="Mandarin Chinese">Mandarim</option>
+            <option value="Japanese">Japonês</option>
+          </select>
+        </div>
+        <div class="mode-row">
+          <button class="mode-btn active" id="mode-casual" data-mode="casual"><i class="ti ti-coffee"></i> Casual</button>
+          <button class="mode-btn" id="mode-business" data-mode="business"><i class="ti ti-briefcase"></i> Profissional</button>
+          <button class="mode-btn" id="mode-correct" data-mode="correct"><i class="ti ti-pencil"></i> Correção</button>
+        </div>
+      </div>
+      <div id="chat-error" class="error-box"></div>
+      <div class="messages" id="messages">
+        <div class="msg ai">Olá! Escolha o idioma e o modo acima, depois escreva qualquer coisa para começar. Vou responder no idioma alvo com tradução e corrigir seus erros. 💬</div>
+      </div>
+      <div class="input-row">
+        <input type="text" id="chat-input" placeholder="Escreva sua mensagem..." autocomplete="off"/>
+        <button class="send-btn" id="send-btn"><i class="ti ti-send"></i></button>
+      </div>
+    </div>
+
+    <!-- VOCAB -->
+    <div id="screen-vocab" class="screen">
+      <div class="sec-title">Adicionar palavra</div>
+      <div class="vocab-add-row">
+        <input type="text" id="vocab-input" placeholder="Palavra ou frase em qualquer idioma..." autocomplete="off"/>
+        <button class="add-btn" id="add-vocab-btn">+ Add</button>
+      </div>
+      <div class="sec-title">Seus flashcards — toque para traduzir</div>
+      <div class="vocab-grid" id="vocab-grid"></div>
+    </div>
+
+    <!-- CONFIG -->
+    <div id="screen-config" class="screen">
+      <div class="sec-title">Configuração</div>
+      <div id="api-status-bar"></div>
+      <div class="api-section">
+        <label for="api-key-input"><i class="ti ti-key"></i> Chave API Groq (gratuita)</label>
+        <input type="password" id="api-key-input" placeholder="gsk_..." autocomplete="off"/>
+        <button class="save-btn" id="save-api-btn">Salvar chave</button>
+        <p class="api-hint">Gratuita e sem cartão de crédito.<br>Obtenha em <strong>console.groq.com</strong> → API Keys.<br>Salva apenas no seu dispositivo.</p>
+      </div>
+      <div class="api-section">
+        <label for="default-lang"><i class="ti ti-language"></i> Idioma padrão</label>
+        <select id="default-lang" style="width:100%;font-size:14px;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--text);">
+          <option value="English">Inglês</option>
+          <option value="Spanish">Espanhol</option>
+          <option value="French">Francês</option>
+          <option value="Italian">Italiano</option>
+          <option value="German">Alemão</option>
+        </select>
+        <button class="save-btn" style="margin-top:10px;" id="save-lang-btn">Salvar idioma</button>
+      </div>
+      <div class="api-section">
+        <label><i class="ti ti-refresh"></i> Reiniciar progresso</label>
+        <button class="save-btn" style="background:#D85A30;" id="reset-btn">Reiniciar tudo</button>
+        <p class="api-hint">Zera streak, XP e palavras. Vocab e chave API são mantidos.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <nav class="nav">
+    <button class="nav-btn active" data-screen="home"><i class="ti ti-home"></i><span>Início</span></button>
+    <button class="nav-btn" data-screen="trilha"><i class="ti ti-map"></i><span>Trilha</span></button>
+    <button class="nav-btn" data-screen="chat"><i class="ti ti-message-circle"></i><span>Conversar</span></button>
+    <button class="nav-btn" data-screen="vocab"><i class="ti ti-cards"></i><span>Vocab</span></button>
+    <button class="nav-btn" data-screen="config"><i class="ti ti-settings"></i><span>Config</span></button>
+  </nav>
+</div>
+
+
+</body>
+</html>
